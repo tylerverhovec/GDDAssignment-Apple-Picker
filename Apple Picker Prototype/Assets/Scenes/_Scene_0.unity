@@ -716,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7367356145112906164, guid: f7ddaa81818210d4096447871cd71593, type: 3}
       propertyPath: speed
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7367356145112906164, guid: f7ddaa81818210d4096447871cd71593, type: 3}
       propertyPath: applePrefab
@@ -728,7 +728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7367356145112906164, guid: f7ddaa81818210d4096447871cd71593, type: 3}
       propertyPath: chanceToChangeDirections
-      value: 0.02
+      value: 0.025
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7ddaa81818210d4096447871cd71593, type: 3}
