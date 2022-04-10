@@ -20,9 +20,23 @@ public class AppleTree : MonoBehaviour
     // Rate at which Apples will be instantiated
     public float        secondsBetweenAppleDrops = 1f;
 
+
     void Start () {
+
         // Dropping apples every second
-    }
+        Invoke( "DropApple", 2f );
+
+    }//Start
+
+
+    void DropApple() {
+
+        GameObject apple = Instantiate<GameObject>( applePrefab );
+        apple.transform.position = transform.position;
+        Invoke( "DropApple", secondsBetweenAppleDrops );
+
+    }//DropApple
+
 
     void Update () {
 
@@ -39,7 +53,8 @@ public class AppleTree : MonoBehaviour
             speed = -Mathf.Abs(speed); // Move left
         }
 
-    }
+    }//Update
+
 
     void FixedUpdate() {
 
@@ -48,6 +63,7 @@ public class AppleTree : MonoBehaviour
             speed *= -1; // Change direction
         }
 
-    }
+    }//FixedUpdate
+
 
 }
