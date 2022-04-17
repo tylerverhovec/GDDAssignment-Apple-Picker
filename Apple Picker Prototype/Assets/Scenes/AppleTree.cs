@@ -11,6 +11,15 @@ public class AppleTree : MonoBehaviour
     // Speed at which the AppleTree moves
     public float        speed = 1f;
 
+    // How fast the speed of the AppleTree increases
+    public float        accel = 0.5f;
+
+    // Limit to how fast the tree can accelerate
+    public float        accelLimit = 10f;
+
+    // Seconds before next accel increment
+    public float        secBeforeAccelIncrease = 5f;
+
     // Distance where AppleTree turns around
     public float        leftAndRightEdge = 10f;
 
@@ -20,6 +29,7 @@ public class AppleTree : MonoBehaviour
     // Rate at which Apples will be instantiated
     public float        secondsBetweenAppleDrops = 1f;
 
+    float timer = 0.0f;
 
     void Start () {
 
@@ -31,14 +41,24 @@ public class AppleTree : MonoBehaviour
 
     void DropApple() {
 
+        timer += Time.deltaTime;
+        float seconds = timer % 60;
+
         GameObject apple = Instantiate<GameObject>( applePrefab );
         apple.transform.position = transform.position;
         Invoke( "DropApple", secondsBetweenAppleDrops );
+
+        if (seconds % secBeforeAccelIncrease == 0) {
+            secondsBetweenAppleDrops -= accel;
+        }
 
     }//DropApple
 
 
     void Update () {
+
+        timer += Time.deltaTime;
+        float seconds = timer % 60;
 
         // Basic Movement
         Vector3 pos = transform.position;
@@ -47,10 +67,26 @@ public class AppleTree : MonoBehaviour
 
         // Changing Direction
         if ( pos.x < -leftAndRightEdge ) {
-           speed = Mathf.Abs(speed); // Move right
+            //Move right
+            if (accel < accelLimit) {
+                speed = Mathf.Abs(speed) + accel;
+            }
+            else {
+                speed = Mathf.Abs(speed);
+            }
         } 
         else if ( pos.x > leftAndRightEdge ) {
-            speed = -Mathf.Abs(speed); // Move left
+            //Move left
+            if (accel < accelLimit) {
+                speed = -Mathf.Abs(speed) - accel;
+            }
+            else {
+                speed = -Mathf.Abs(speed);
+            }
+        }
+
+        if (seconds % secBeforeAccelIncrease == 0){
+            accel += accel;
         }
 
     }//Update
